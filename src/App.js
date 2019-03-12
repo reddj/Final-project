@@ -1,28 +1,31 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import DatabaseContainer from './DatabaseContainer/DatabaseContainer'
+import MapContainer from './MapContainer/MapContainer'
+import 'semantic-ui-css/semantic.min.css'
 import './App.css';
 
-class App extends Component {
+export default class App extends Component {
+
+  state = {
+    center: {
+      lat: 30.267153,
+      lng: -97.7430608
+    }, 
+    zoom: 13
+  }
+  getCoordinates = (lat, lng) => {
+    this.setState({ center: {lat:lat, lng:lng} })
+  }
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <div className='databaseContainer'>
+          <DatabaseContainer getCoordinates={this.getCoordinates} />
+        </div>
+        <div className='mapContainer'>
+          <MapContainer center = {this.state.center} zoom={this.state.zoom} />
+        </div>
       </div>
     );
   }
 }
-
-export default App;
