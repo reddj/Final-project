@@ -17,7 +17,7 @@ client.connect().then(() => {
 app.use(cors())
 app.use(bodyparser.urlencoded({ extended: true }))
 
-const query = 'SELECT longitude, latitude, name, location_name, description, image FROM "location" AS coordinates INNER JOIN restaurants ON coordinates.location_id = restaurants.location_foreign_key '
+const query = 'SELECT longitude, latitude, name, location_name, description, image, website FROM "location" AS coordinates INNER JOIN restaurants ON coordinates.location_id = restaurants.location_foreign_key '
 const query2 = 'SELECT name, location_name, longitude, latitude FROM restaurants, "location" WHERE location_foreign_key = location_id'
 
 // This is for selecting a movie from the database

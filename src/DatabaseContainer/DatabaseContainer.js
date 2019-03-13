@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import  Carousel  from  'semantic-ui-carousel-react';
 
 export default class DatabaseContainer extends Component {
 
@@ -27,11 +28,16 @@ export default class DatabaseContainer extends Component {
         this.props.getCoordinates(lat, lng)
     }
 
+    handleClick2 = (url) => {
+        console.log(url)
+        //window.location.assign(url)
+    }
+
     render () {
         let returnData = this.state.restaurants.map(item => {
             return(
-               
-                    
+                {render: () => {
+                    return (
                     <div class="ui rasied card cardClass">
                     <div class="image">
                         <img className ='imageClass'src={item.image}></img>
@@ -45,20 +51,35 @@ export default class DatabaseContainer extends Component {
                             {item.description}
                         </div>
                     </div>
+                    <div className='ui buttons'>
+                    <div className='webButton'>
                     <div class="ui animated fade button locationButton" tabindex="0" onClick={this.handleClick.bind(null, parseFloat(item.latitude), parseFloat(item.longitude))}>
                     <div class="visible content">Where is this located?</div>
                     <div class="hidden content">
                      {item.location_name}
                     </div>
-                    </div> 
+                    </div>
+                    </div>
+                    <div className='webButton'>
+                        <button class="ui icon button" onClick={this.handleClick2.bind(item.website)}>
+                        <i aria-hidden="true" class="world icon"></i>
+                        </button>
+                    </div>
+                    </div>
                     </div>
                   
-                
+                    )}}
             )
         })
         return (
-            <div>
-                {returnData}
+            <div className="ui one cards">
+                <Carousel className='carousel'
+				elements  =  { returnData }
+				duration  ={10000}
+				animation  ='slide left'
+				showNextPrev  =  {false}
+                showIndicators  ={true}
+			/>
             </div>
         )
     }
